@@ -66,10 +66,11 @@ exports.handler = async (event) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        success: false,
-        error: error.message || "Could not create Razorpay order"
-      })
+     body: JSON.stringify({
+  success: true,
+  key_id: process.env.RAZORPAY_KEY_ID,
+  order: order
+})
     };
   }
 };
