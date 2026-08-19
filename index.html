@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POSTERLY — 10 Posters for ₹80</title>
+<style>
+:root{--bg:#09090b;--card:#121216;--card2:#18181d;--text:#f7f7f8;--muted:#9999a4;--line:#292930;--accent:#fff;--ok:#77e09a;--warn:#e8cb76}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit}
+.header{position:sticky;top:0;z-index:30;background:rgba(9,9,11,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}.logo{font-weight:950;letter-spacing:3px;font-size:21px}.navlinks{display:flex;gap:18px}.navlinks a{text-decoration:none;color:var(--muted);font-size:14px}.navlinks a:hover{color:#fff}
+.cartBtn,.ghost{background:var(--card);border:1px solid var(--line);color:#fff;border-radius:12px;padding:10px 14px}.count{background:#fff;color:#000;border-radius:99px;padding:2px 7px;font-size:12px;font-weight:900;margin-left:4px}
+.hero{max-width:1180px;margin:auto;padding:75px 20px 50px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px}.eyebrow{font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}.hero h1{font-size:clamp(52px,8vw,92px);line-height:.86;letter-spacing:-5px;margin:16px 0 22px}.hero p{max-width:620px;color:var(--muted);line-height:1.7;font-size:16px}.heroVisual{border:1px solid var(--line);border-radius:28px;padding:15px;background:#111114;display:grid;grid-template-columns:1fr 1fr;gap:10px;overflow:hidden}.heroVisual img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:15px}.heroVisual img:nth-child(1){transform:rotate(-2deg)}.heroVisual img:nth-child(2){transform:rotate(2deg);margin-top:28px}.primary{border:0;background:#fff;color:#050505;border-radius:12px;padding:12px 16px;font-weight:900}.primary:hover{transform:translateY(-1px)}.primary:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.section{max-width:1180px;margin:auto;padding:25px 20px 65px}.head{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px}.head h2{margin:0;font-size:30px}.muted{color:var(--muted)}
+.packCard{display:grid;grid-template-columns:280px 1fr;gap:25px;border:1px solid var(--line);background:var(--card);border-radius:22px;padding:14px;overflow:hidden}.packPreview{display:grid;grid-template-columns:1fr 1fr;gap:5px}.packPreview img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px}.packInfo{padding:20px 12px}.packInfo h3{font-size:34px;margin:0 0 8px}.price{font-size:26px;font-weight:950;margin:16px 0}.pill{display:inline-flex;border:1px solid var(--line);background:var(--card2);border-radius:99px;padding:7px 11px;font-size:12px;margin:3px}.tools{display:flex;gap:10px;margin:15px 0}.input,.search,.field input,.field textarea{width:100%;background:var(--card2);color:#fff;border:1px solid var(--line);border-radius:11px;padding:12px;outline:none}.input:focus,.search:focus,.field input:focus,.field textarea:focus{border-color:#555}
+.posterGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.poster{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);cursor:pointer}.poster img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}.poster .check{position:absolute;top:8px;right:8px;width:27px;height:27px;border-radius:50%;background:rgba(0,0,0,.75);border:1px solid #777;display:grid;place-items:center;font-size:14px}.poster.selected{outline:2px solid #fff}.poster.selected .check{background:#fff;color:#000}.posterName{padding:8px 9px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.selectionBar{position:sticky;bottom:14px;z-index:10;margin-top:18px;padding:13px 15px;background:rgba(18,18,22,.94);border:1px solid var(--line);backdrop-filter:blur(15px);border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cartDrawer{position:fixed;z-index:60;right:-440px;top:0;width:min(440px,100%);height:100%;background:#101014;border-left:1px solid var(--line);padding:20px;transition:.25s;display:flex;flex-direction:column}.cartDrawer.open{right:0}.cartItems{flex:1;overflow:auto}.cartItem{display:grid;grid-template-columns:58px 1fr auto;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.cartThumb{width:58px;height:70px;object-fit:cover;border-radius:8px}.qty{display:flex;align-items:center;gap:7px;margin-top:8px}.qty button,.close{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:#fff}.drawerBottom{border-top:1px solid var(--line);padding-top:15px}.row{display:flex;justify-content:space-between;gap:15px;margin:8px 0}.total{font-size:19px;font-weight:950;border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(7px);z-index:55;display:none;align-items:center;justify-content:center;padding:15px}.overlay.open{display:flex}.modal{width:min(720px,100%);max-height:94vh;overflow:auto;background:#111115;border:1px solid var(--line);border-radius:22px;padding:22px}.modalHead{display:flex;align-items:center;justify-content:space-between;gap:10px}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{margin-top:12px}.field.full{grid-column:1/-1}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.field textarea{min-height:90px;resize:vertical}.notice{background:#211f15;border:1px solid #47402a;color:#ded3a4;border-radius:12px;padding:12px;font-size:13px;line-height:1.55;margin:14px 0}.success{border:1px solid #2d6040;background:#122219;color:#baf0ca;border-radius:14px;padding:16px;margin:14px 0}.danger{color:#ff9d9d}
+footer{border-top:1px solid var(--line);padding:30px 20px;text-align:center;color:var(--muted);font-size:13px}.toast{position:fixed;z-index:100;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#fff;color:#000;border-radius:99px;padding:12px 17px;font-weight:800;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:50px}.packCard{grid-template-columns:1fr}.posterGrid{grid-template-columns:repeat(3,1fr)}.navlinks{display:none}}
+@media(max-width:520px){.hero h1{letter-spacing:-3px}.posterGrid{grid-template-columns:repeat(2,1fr)}.formGrid{grid-template-columns:1fr}.field.full{grid-column:auto}.selectionBar{align-items:stretch;flex-direction:column}.packInfo h3{font-size:28px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+<nav class="nav">
+<div class="logo">POSTERLY</div>
+<div class="navlinks"><a href="#shop">Shop</a><a href="#choose">Choose Posters</a><a href="#track">Track</a></div>
+<button class="cartBtn" onclick="openCart()">Cart <span class="count" id="cartCount">0</span></button>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+<div>
+<div class="eyebrow">Simple poster packs</div>
+<h1>10 POSTERS.<br>₹80.</h1>
+<p>Pick any 10 designs from the collection, add them as one pack, enter your delivery details and place the order. Payment is intentionally left ready for your Razorpay integration.</p>
+<button class="primary" onclick="document.getElementById('shop').scrollIntoView()">Start Shopping</button>
+</div>
+<div class="heroVisual">
+<img src="posters/porsche.jpeg" alt="Poster">
+<img src="posters/batman.jpeg" alt="Poster">
+</div>
+</section>
+
+<section class="section" id="shop">
+<div class="head"><div><h2>Poster Pack</h2><div class="muted">One simple product</div></div></div>
+<div class="packCard">
+<div class="packPreview">
+<img src="posters/messi-10-vintage.jpeg" alt="">
+<img src="posters/thomas-shelby.jpeg" alt="">
+<img src="posters/spiderman.jpeg" alt="">
+<img src="posters/berlin.jpeg" alt="">
+</div>
+<div class="packInfo">
+<span class="pill">10 posters</span><span class="pill">₹80</span><span class="pill">Choose your designs</span>
+<h3>10 Poster Pack</h3>
+<p class="muted">Select exactly 10 designs. You can choose from all available posters below.</p>
+<div class="price">₹80 <span class="muted" style="font-size:13px;font-weight:600">per pack</span></div>
+<button class="primary" onclick="document.getElementById('choose').scrollIntoView()">Choose 10 Posters</button>
+</div>
+</div>
+</section>
+
+<section class="section" id="choose">
+<div class="head"><div><h2>Choose your 10</h2><div class="muted">Tap a poster to select it</div></div><strong id="selectionCount">0 / 10</strong></div>
+<div class="tools"><input class="search" id="search" placeholder="Search designs..." oninput="renderPosters()"></div>
+<div id="posterGrid" class="posterGrid"></div>
+<div class="selectionBar"><div><strong id="barText">Select 10 posters</strong><div class="muted" style="font-size:12px">Exactly 10 designs are required.</div></div><button id="addPackBtn" class="primary" disabled onclick="addPack()">Add 10-Poster Pack — ₹80</button></div>
+</section>
+
+<section class="section" id="track">
+<div class="head"><div><h2>Track order</h2><div class="muted">Orders created on this browser can be tracked here.</div></div></div>
+<div class="packCard" style="display:block">
+<div class="tools" style="max-width:650px"><input class="search" id="trackInput" placeholder="Order number e.g. PT-123456-ABC"><button class="primary" onclick="trackOrder()">Track</button></div>
+<div id="trackResult" class="muted"></div>
+</div>
+</section>
+</main>
+
+<footer>© 2026 POSTERLY · Backend orders, tracking and Razorpay-ready payments.</footer>
+
+<!-- CART -->
+<aside class="cartDrawer" id="cartDrawer">
+<div class="modalHead"><h2 style="margin:0">Your Cart</h2><button class="close" onclick="closeCart()">×</button></div>
+<div class="cartItems" id="cartItems"></div>
+<div class="drawerBottom">
+<div class="row total"><span>Total</span><span id="cartTotal">₹0</span></div>
+<button class="primary" style="width:100%" onclick="openCheckout()">Continue to Checkout</button>
+</div>
+</aside>
+
+<!-- CHECKOUT -->
+<div class="overlay" id="checkoutOverlay">
+<div class="modal">
+<div class="modalHead"><div><h2 style="margin:0">Checkout</h2><div class="muted">Delivery details</div></div><button class="close" onclick="closeCheckout()">×</button></div>
+<div class="notice">Your order will be created as <strong>PAYMENT PENDING</strong>. Do not mark an order paid manually. Razorpay verification will be added separately.</div>
+<form id="checkoutForm">
+<div class="formGrid">
+<div class="field"><label>Full name *</label><input id="customerName" required></div>
+<div class="field"><label>Mobile number *</label><input id="customerMobile" required inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile"></div>
+<div class="field"><label>Email address *</label><input id="customerEmail" required type="email"></div>
+<div class="field"><label>PIN code *</label><input id="customerPin" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6"></div>
+<div class="field full"><label>Full delivery address *</label><textarea id="customerAddress" required placeholder="House / street / locality"></textarea></div>
+<div class="field"><label>City *</label><input id="customerCity" required></div>
+<div class="field"><label>State *</label><input id="customerState" required></div>
+</div>
+<div id="checkoutSummary" class="orderBox"></div>
+<button class="primary" style="width:100%;margin-top:10px">Create Order & Continue</button>
+</form>
+</div>
+</div>
+
+<!-- ORDER CREATED -->
+<div class="overlay" id="successOverlay">
+<div class="modal">
+<div class="modalHead"><h2 style="margin:0">Order Created</h2><button class="close" onclick="closeSuccess()">×</button></div>
+<div class="success"><span id="successStatus">ORDER RECEIVED — PAYMENT PENDING</span></div>
+<div class="orderBox">
+<div class="row"><span>Order number</span><strong id="successOrder"></strong></div>
+<div class="row"><span>Total</span><strong id="successTotal"></strong></div>
+<div class="row"><span>Status</span><strong>PAYMENT PENDING</strong></div>
+</div>
+<p class="muted">Send the order to your email using the button below. Your mail app will open with the order details filled in.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<button class="primary" id="payNowBtn" style="display:none">Pay Now</button>
+<button class="ghost" onclick="closeSuccess();document.getElementById('track').scrollIntoView()">Track Order</button>
+<button class="ghost" onclick="closeSuccess()">Close</button>
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+let POSTERS=[],PACK_PRICE=80,PACK_SIZE=10,selected=new Set(),cart=JSON.parse(localStorage.getItem('posterly_cart')||'[]'),lastOrder=null;
+const $=id=>document.getElementById(id),money=n=>'₹'+Number(n).toLocaleString('en-IN'),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2200)}
+async function init(){
+ const r=await fetch('/api/posters');const d=await r.json();POSTERS=d.posters;PACK_PRICE=d.packPrice;PACK_SIZE=d.packSize;renderPosters();saveCart();
+}
+function renderPosters(){const q=$('search').value.toLowerCase();const list=POSTERS.filter(p=>p.name.toLowerCase().includes(q));$('posterGrid').innerHTML=list.map(p=>`<article class="poster ${selected.has(p.id)?'selected':''}" onclick="togglePoster('${p.id}')"><img src="${p.image}" alt="${esc(p.name)}"><div class="check">${selected.has(p.id)?'✓':''}</div><div class="posterName">${esc(p.name)}</div></article>`).join('');updateSelection()}
+function togglePoster(id){if(selected.has(id))selected.delete(id);else{if(selected.size>=PACK_SIZE)return toast('You can select exactly 10 posters');selected.add(id)}renderPosters()}
+function updateSelection(){const n=selected.size;$('selectionCount').textContent=`${n} / ${PACK_SIZE}`;$('barText').textContent=n===PACK_SIZE?'Pack ready':'Select '+(PACK_SIZE-n)+' more';$('addPackBtn').disabled=n!==PACK_SIZE}
+function addPack(){if(selected.size!==PACK_SIZE)return toast('Select exactly 10 posters');cart.push({id:'pack-'+Date.now(),qty:1,posterIds:[...selected]});saveCart();toast('10-poster pack added')}
+function saveCart(){localStorage.setItem('posterly_cart',JSON.stringify(cart));renderCart();$('cartCount').textContent=cart.reduce((s,x)=>s+x.qty,0)}
+function total(){return cart.reduce((s,x)=>s+x.qty*PACK_PRICE,0)}
+function renderCart(){const box=$('cartItems');if(!cart.length){box.innerHTML='<div style="padding:50px 10px;text-align:center" class="muted">Your cart is empty.</div>';$('cartTotal').textContent='₹0';return}box.innerHTML=cart.map((item,i)=>{const names=item.posterIds.map(id=>POSTERS.find(p=>p.id===id)?.name).filter(Boolean);const thumb=POSTERS.find(p=>p.id===item.posterIds[0]);return `<div class="cartItem"><img class="cartThumb" src="${thumb?.image||''}"><div><strong>10 Poster Pack</strong><div class="muted">${money(PACK_PRICE)} each</div><div class="muted" style="font-size:11px;margin-top:5px">${esc(names.join(', '))}</div><div class="qty"><button onclick="changeQty(${i},-1)">−</button><span>${item.qty}</span><button onclick="changeQty(${i},1)">+</button></div></div><button class="close" onclick="removeItem(${i})">×</button></div>`}).join('');$('cartTotal').textContent=money(total())}
+function changeQty(i,d){cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);saveCart()}function removeItem(i){cart.splice(i,1);saveCart()}function openCart(){renderCart();$('cartDrawer').classList.add('open')}function closeCart(){$('cartDrawer').classList.remove('open')}
+function openCheckout(){if(!cart.length)return toast('Your cart is empty');closeCart();renderCheckoutSummary();$('checkoutOverlay').classList.add('open')}function closeCheckout(){$('checkoutOverlay').classList.remove('open')}
+function renderCheckoutSummary(){$('checkoutSummary').innerHTML=cart.map(x=>`<div class="row"><span>10 Poster Pack × ${x.qty}</span><strong>${money(PACK_PRICE*x.qty)}</strong></div><div class="muted" style="font-size:11px">${esc(x.posterIds.map(id=>POSTERS.find(p=>p.id===id)?.name).filter(Boolean).join(', '))}</div>`).join('')+`<div class="row total"><span>Total</span><strong>${money(total())}</strong></div>`}
+function getCustomer(){return{name:$('customerName').value.trim(),mobile:$('customerMobile').value.trim(),email:$('customerEmail').value.trim(),pin:$('customerPin').value.trim(),address:$('customerAddress').value.trim(),city:$('customerCity').value.trim(),state:$('customerState').value.trim()}}
+async function createOrder(){const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({customer:getCustomer(),items:cart.map(x=>({qty:x.qty,posterIds:x.posterIds}))})});const d=await r.json();if(!r.ok)throw Error(d.error||'Order failed');return d}
+$('checkoutForm').addEventListener('submit',async e=>{e.preventDefault();const btn=e.submitter;btn.disabled=true;btn.textContent='Creating order…';try{const d=await createOrder();lastOrder=d.order;$('successOrder').textContent=d.order.orderId;$('successTotal').textContent=money(d.order.total);$('successOverlay').classList.add('open');cart=[];saveCart();closeCheckout();if(d.razorpay){$('payNowBtn').style.display='inline-flex';$('payNowBtn').dataset.rp=JSON.stringify(d.razorpay);$('successStatus').textContent='PAYMENT PENDING — Pay securely below.'}else{$('payNowBtn').style.display='none';$('successStatus').textContent='ORDER RECEIVED — PAYMENT PENDING';} }catch(err){toast(err.message)}finally{btn.disabled=false;btn.textContent='Create Order & Continue'}});
+function closeSuccess(){$('successOverlay').classList.remove('open')}
+async function payNow(){if(!lastOrder)return;const cfg=JSON.parse($('payNowBtn').dataset.rp||'null');if(!cfg)return toast('Razorpay is not configured yet.');const rzp=new Razorpay({key:cfg.keyId,amount:cfg.amount,currency:cfg.currency,name:'POSTERLY',description:'10 Poster Pack',order_id:cfg.orderId,prefill:{name:lastOrder.customer?.name,email:lastOrder.customer?.email,contact:lastOrder.customer?.mobile},theme:{color:'#111'}});rzp.on('payment.failed',r=>toast(r.error?.description||'Payment failed'));rzp.open()}
+$('payNowBtn').addEventListener('click',async()=>{const cfg=JSON.parse($('payNowBtn').dataset.rp||'null');if(!cfg)return;const rzp=new Razorpay({key:cfg.keyId,amount:cfg.amount,currency:cfg.currency,name:'POSTERLY',description:'10 Poster Pack',order_id:cfg.orderId,prefill:{name:$('customerName').value,email:$('customerEmail').value,contact:$('customerMobile').value},handler:async response=>{try{const r=await fetch('/api/payment/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...response,orderId:lastOrder.orderId})});const d=await r.json();if(!r.ok)throw Error(d.error);lastOrder=d.order;$('successStatus').textContent='PAYMENT SUCCESSFUL — ORDER CONFIRMED';toast('Payment verified');}catch(e){toast(e.message)}}});rzp.open()});
+function trackOrder(){const id=$('trackInput').value.trim().toUpperCase();if(!id)return $('trackResult').textContent='Enter an order number.';fetch('/api/orders/'+encodeURIComponent(id)).then(async r=>{const d=await r.json();if(!r.ok)throw Error(d.error);const o=d.order;$('trackResult').innerHTML=`<div class="orderBox"><div class="row"><span>Order</span><strong>${esc(o.orderId)}</strong></div><div class="row"><span>Payment</span><strong>${esc(o.paymentStatus)}</strong></div><div class="row"><span>Status</span><strong>${esc(o.orderStatus)}</strong></div><div class="row"><span>Tracking</span><strong>${esc(o.trackingNumber||'Not assigned yet')}</strong></div><div class="row"><span>Total</span><strong>${money(o.total)}</strong></div><div style="margin-top:14px"><strong>Posters</strong><div class="muted" style="margin-top:7px">${o.items.flatMap(i=>i.posterIds.map(id=>POSTERS.find(p=>p.id===id)?.name||id)).map(esc).join(' · ')}</div></div></div>`}).catch(e=>$('trackResult').innerHTML='<span class="danger">'+esc(e.message)+'</span>')}
+init();
+</script>
