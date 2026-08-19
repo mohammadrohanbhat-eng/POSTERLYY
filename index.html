@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POSTERLY</title>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+/* =========================================================
+   POSTERLY RAZORPAY KEY ID
+   PASTE YOUR RAZORPAY KEY ID BETWEEN THE QUOTES BELOW.
+   Example: rzp_test_123456789
+   DO NOT put your Razorpay Key Secret here.
+   ========================================================= */
+const RAZORPAY_KEY_ID = "rzp_test_TReKBHnOmmTzfT";
+</script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#08080a;color:#f5f5f5;font-family:Arial,sans-serif}button{cursor:pointer;font:inherit}
+.nav{height:70px;border-bottom:1px solid #29292e;display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:sticky;top:0;background:#08080aee;z-index:5}
+.logo{font-weight:900;letter-spacing:4px}.nav a{margin:0 14px;color:#aaa;text-decoration:none}.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:800;background:#fff;color:#000}
+.wrap{max-width:1100px;margin:auto;padding:50px 20px}.hero{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+.hero h1{font-size:clamp(50px,8vw,90px);line-height:.9;margin:12px 0}.muted{color:#999;line-height:1.6}
+.heroimgs,.pack,.card,.option{background:#111113;border:1px solid #29292e;border-radius:20px}.heroimgs{padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.heroimgs img,.pack img{width:100%;object-fit:cover;border-radius:12px}.heroimgs img{height:360px}.heroimgs img+img{margin-left:0}section{margin-top:70px}h2{font-size:32px}
+.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px}.pack{padding:16px;display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.pack img{aspect-ratio:2/3}
+.packinfo{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding-top:10px}.price{font-size:27px;font-weight:900}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{overflow:hidden}.card img{width:100%;aspect-ratio:2/3;object-fit:cover}.body{padding:13px}.row{display:flex;justify-content:space-between;align-items:center}
+.small{border:0;border-radius:8px;padding:8px 11px;font-weight:800}.future{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.option{padding:16px}.option strong{font-size:20px}
+.overlay{display:none;position:fixed;inset:0;background:#000b;z-index:20}.overlay.open{display:block}.drawer{margin-left:auto;width:min(470px,100%);height:100%;background:#101012;padding:24px;overflow:auto}
+.close{float:right;background:none;color:#fff;border:0;font-size:30px}.item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #29292e}.item img{width:58px;height:78px;object-fit:cover;border-radius:7px}
+.qty{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}.qty button{background:#19191c;color:#fff;border:1px solid #444;border-radius:6px;width:28px;height:28px}
+.form{display:grid;gap:10px;margin-top:18px}.form input,.form textarea{padding:13px;border-radius:9px;border:1px solid #333;background:#18181b;color:#fff}.form textarea{min-height:90px}
+.note{font-size:12px;color:#777}.status{font-size:12px;color:#aaa;line-height:1.5}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.future{grid-template-columns:repeat(2,1fr)}.navlinks{display:none}}
+@media(max-width:500px){.pack{grid-template-columns:repeat(2,1fr)}.pack img:nth-child(n+5){display:none}}
+</style></head>
+<body>
+<header><div class="nav"><div class="logo">POSTERLY</div><div class="navlinks"><a href="#packs">Packs</a><a href="#individual">Individual</a></div><button class="btn" onclick="openCart()">Cart <span id="count">0</span></button></div></header>
+<main class="wrap">
+<div class="hero"><div><div class="muted">DIGITAL POSTER STORE</div><h1>POSTERS.<br>YOUR WAY.</h1><p class="muted">Mix-Up Series: exactly 10 displayed posters for ₹80. Individual posters: ₹15 each, quantity 1–100.</p><a class="btn" href="#packs">Shop now</a></div><div class="heroimgs"><img src="./posters/batman.jpeg"><img src="./posters/messi-10-vintage.jpeg"></div></div>
+
+<section id="packs"><div class="head"><div><h2>Mix-Up Series</h2><div class="muted">Fixed pack — no poster selection.</div></div><b>10 posters • ₹80</b></div>
+<div class="pack">
+<img src="./posters/batman.jpeg"><img src="./posters/berlin.jpeg"><img src="./posters/comic-hero.jpeg"><img src="./posters/doctor-doom.jpeg"><img src="./posters/lets-cook.jpeg">
+<img src="./posters/messi-10-dark.jpeg"><img src="./posters/messi-10-vintage.jpeg"><img src="./posters/porsche.jpeg"><img src="./posters/professor.jpeg"><img src="./posters/spiderman.jpeg">
+<div class="packinfo"><div><div class="price">₹80</div><div class="muted">10 displayed posters</div></div><button class="btn" onclick="addPack()">BUY MIX-UP PACK</button></div></div></section>
+
+<section id="individual"><div class="head"><div><h2>Individual Posters</h2><div class="muted">₹15 per poster • quantity 1–100</div></div></div><div class="cards" id="grid"></div></section>
+<section><div class="head"><div><h2>Future Packs</h2><div class="muted">Prepared for 2–20 poster packs.</div></div></div><div class="future" id="future"></div></section>
+</main>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeCart()"><div class="drawer"><button class="close" onclick="closeCart()">×</button><h2>Your Cart</h2><div id="items"></div><h2 id="total">₹0</h2><div id="checkout"></div></div></div>
+
+<script>
+const P=[
+["Batman","batman.jpeg"],["Berlin","berlin.jpeg"],["Comic Hero","comic-hero.jpeg"],["Doctor Doom","doctor-doom.jpeg"],
+["Let's Cook","lets-cook.jpeg"],["Messi Dark","messi-10-dark.jpeg"],["Messi Vintage","messi-10-vintage.jpeg"],
+["Porsche","porsche.jpeg"],["Professor","professor.jpeg"],["Spider-Man","spiderman.jpeg"],["Thomas Shelby","thomas-shelby.jpeg"],["Tom & Jerry","tom-jerry.jpeg"]
+];
+let cart=[];
+
+function addPack(){let x=cart.find(x=>x.type==="pack");x?x.qty++:cart.push({type:"pack",qty:1});render();openCart()}
+function add(i){let x=cart.find(x=>x.type==="poster"&&x.i===i);x?x.qty=Math.min(100,x.qty+1):cart.push({type:"poster",i,qty:1});render();openCart()}
+function change(i,d){cart[i].qty+=d;cart[i].qty=Math.max(1,Math.min(cart[i].type==="poster"?100:99,cart[i].qty));render()}
+function del(i){cart.splice(i,1);render()}
+function sum(){return cart.reduce((s,x)=>s+(x.type==="pack"?80:15)*x.qty,0)}
+
+function render(){
+document.getElementById("count").textContent=cart.reduce((s,x)=>s+x.qty,0);
+document.getElementById("items").innerHTML=cart.length?cart.map((x,i)=>x.type==="pack"
+?`<div class="item"><div><b>Mix-Up Series</b><div class="muted">10 posters per pack • ₹80</div><div class="qty"><button onclick="change(${i},-1)">−</button>${x.qty}<button onclick="change(${i},1)">+</button><button onclick="del(${i})">Remove</button></div></div></div>`
+:`<div class="item"><img src="./posters/${P[x.i][1]}"><div><b>${P[x.i][0]}</b><div class="muted">₹15 each</div><div class="qty"><button onclick="change(${i},-1)">−</button>${x.qty}<button onclick="change(${i},1)">+</button><button onclick="del(${i})">Remove</button></div></div></div>`).join("")
+:'<p class="muted">Cart is empty.</p>';
+
+document.getElementById("total").textContent="₹"+sum();
+
+document.getElementById("checkout").innerHTML=cart.length?`
+<div class="form">
+<input id="name" placeholder="Full name">
+<input id="phone" placeholder="Phone number">
+<textarea id="address" placeholder="Full delivery address"></textarea>
+<button id="payButton" class="btn" onclick="order()">PROCEED TO PAYMENT</button>
+<div id="payStatus" class="status"></div>
+<div class="note">Payment gateway connected through Netlify Functions.</div>
+</div>`:"";
+}
+
+function openCart(){document.getElementById("overlay").classList.add("open");render()}
+function closeCart(){document.getElementById("overlay").classList.remove("open")}
+
+async function order(){
+const n=document.getElementById("name").value.trim();
+const p=document.getElementById("phone").value.trim();
+const a=document.getElementById("address").value.trim();
+const button=document.getElementById("payButton");
+const status=document.getElementById("payStatus");
+
+if(!n||!p||!a){alert("Please fill all delivery details.");return}
+if(!cart.length){alert("Cart is empty.");return}
+
+const totalAmount=sum();
+
+button.disabled=true;
+button.textContent="CREATING PAYMENT...";
+status.textContent="Connecting to Razorpay...";
+
+try{
+const response=await fetch("/.netlify/functions/create-order",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+amount:totalAmount,
+customer:{name:n,phone:p,address:a},
+cart:cart
+})
+});
+
+const data=await response.json();
+console.log("POSTERLY create-order response:",data);
+
+if(!response.ok||!data.success||!data.order||!data.order.id){
+throw new Error(data.error||"Could not create Razorpay order");
+}
+
+if(typeof Razorpay==="undefined"){
+throw new Error("Razorpay Checkout did not load. Refresh the page and try again.");
+}
+
+const options={
+key:RAZORPAY_KEY_ID||data.key_id,
+amount:data.order.amount,
+currency:data.order.currency||"INR",
+name:"POSTERLY",
+description:"POSTERLY Poster Order",
+order_id:data.order.id,
+prefill:{name:n,contact:p},
+notes:{customer_name:n,customer_phone:p,customer_address:a},
+theme:{color:"#111111"},
+
+handler:async function(payment){
+status.textContent="Payment received. Verifying...";
+
+try{
+const verifyResponse=await fetch("/.netlify/functions/verify-payment",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+razorpay_payment_id:payment.razorpay_payment_id,
+razorpay_order_id:payment.razorpay_order_id,
+razorpay_signature:payment.razorpay_signature
+})
+});
+
+const verified=await verifyResponse.json();
+
+if(!verifyResponse.ok||!verified.success){
+throw new Error(verified.error||"Payment verification failed");
+}
+
+localStorage.setItem("posterly_order",JSON.stringify({
+id:"PL"+Date.now(),
+customer:{name:n,phone:p,address:a},
+cart:cart,
+total:totalAmount,
+razorpay_order_id:payment.razorpay_order_id,
+razorpay_payment_id:payment.razorpay_payment_id,
+status:"PAID"
+}));
+
+alert("Payment successful! Your POSTERLY order is confirmed.");
+cart=[];
+render();
+closeCart();
+
+}catch(error){
+console.error(error);
+status.textContent="Payment verification failed. Do not pay again until the order is checked.";
+alert("Payment verification failed. Do not pay again.");
+button.disabled=false;
+button.textContent="PROCEED TO PAYMENT";
+}
+},
+
+modal:{ondismiss:function(){
+button.disabled=false;
+button.textContent="PROCEED TO PAYMENT";
+status.textContent="";
+}}
+};
+
+const rzp=new Razorpay(options);
+
+rzp.on("payment.failed",function(event){
+console.error("Payment failed:",event);
+alert("Payment failed: "+(event.error?.description||"Please try again."));
+button.disabled=false;
+button.textContent="PROCEED TO PAYMENT";
+status.textContent="";
+});
+
+rzp.open();
+
+}catch(error){
+console.error("Payment start error:",error);
+alert("Could not start payment: "+error.message);
+button.disabled=false;
+button.textContent="PROCEED TO PAYMENT";
+status.textContent="";
+}
+}
+
+document.getElementById("grid").innerHTML=P.map((p,i)=>`<div class="card"><img src="./posters/${p[1]}"><div class="body"><b>${p[0]}</b><div class="row"><strong>₹15</strong><button class="small" onclick="add(${i})">ADD</button></div></div></div>`).join("");
+
+document.getElementById("future").innerHTML=[2,3,4,5,6,7,8,9,10,11,12,15,20].map(n=>`<div class="option"><strong>${n} Poster Pack</strong><div class="muted">Coming soon</div></div>`).join("");
+
+render();
+</script>
+<script>
+/* POSTERLY image fallback — does not alter layout or payment. */
+document.addEventListener("error", function(e){
+  if(e.target && e.target.tagName === "IMG" && !e.target.dataset.posterFallback){
+    e.target.dataset.posterFallback="1";
+    e.target.alt="Poster image unavailable";
+    e.target.style.background="#19191c";
+    e.target.style.objectFit="contain";
+  }
+}, true);
+</script>
+
+</body></html>
