@@ -202,14 +202,16 @@ async function order(){
  status.textContent="Connecting securely to Razorpay...";
 
  try{
+const totalAmount = sum();
+
 const response = await fetch("/.netlify/functions/create-order", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        amount: totalAmount
-    })
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    amount: totalAmount
+  })
 });
 
 const data = await response.json();
@@ -217,18 +219,40 @@ const data = await response.json();
 console.log("Create-order response:", data);
 
 if (!response.ok || !data.success || !data.order || !data.order.id) {
-    throw new Error(data.error || "Could not create Razorpay order");
+  throw new Error(data.error || "Could not create Razorpay order");
 }
 
 const razorpayOrder = data.order;
 
-   const options={
-     key:data.key_id,
-     amount:data.amount,
-     currency:data.currency||"INR",
-     name:"POSTERLY",
-     description:"POSTERLY Poster Order",
-     order_id:data.order_id,
+const options = {
+  key: "",
+
+  amount: razorpayOrder.amount,
+
+  currency: razorpayOrder.currency || "INR",
+
+  name: "POSTERLY",
+
+  description: "POSTERLY Poster Order",
+
+  order_id: razorpayOrder.id,
+
+  prefill: {
+    name: n,
+    contact: p
+  },
+
+  notes: {
+    customer_name: n,
+    customer_phone: p,
+    customer_address: a
+  },
+
+  theme: {
+    color: "#111111"
+  },
+
+  handler: async function(payment) {
      prefill:{name:n,contact:p},
      notes:{
        customer_name:n,
