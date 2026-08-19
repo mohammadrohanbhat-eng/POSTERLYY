@@ -1,73 +1,116 @@
-const crypto = require("crypto");
+const Razorpay = require("razorpay");
 
-exports.handler = async function(event) {
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
+});
+
+exports.handler = async (event) => {
   try {
     if (event.httpMethod !== "POST") {
-      return json(405, { error: "Method not allowed" });
-    }
-
-    const keyId = process.env.RAZORPAY_KEY_ID;
-    const keySecret = process.env.RAZORPAY_KEY_SECRET;
-
-    if (!keyId || !keySecret) {
-      console.error("Missing Razorpay environment variables");
-      return json(500, { error: "Razorpay server keys are not configured in Netlify." });
+      return {
+        statusCode: 405,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          success: false,
+          error: "Method not allowed"
+        })
+      };
     }
 
     const body = JSON.parse(event.body || "{}");
-    const amountRupees = Number(body.amount);
 
-    if (!Number.isFinite(amountRupees) || amountRupees <= 0) {
-      return json(400, { error: "Invalid amount." });
+    const amount = Number(body.amount);
+    const customer = body.customer || {};
+    const cart = body.cart || [];
+
+    if (!amount || amount <= 0) {
+      return {
+        statusCode: 400,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          success: false,
+          error: "Invalid payment amount"
+        })
+      };
     }
 
-    const amount = Math.round(amountRupees * 100);
+    if (!cart.length) {
+      return {
+        statusCode: 400,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          success: false,
+          error: "Cart is empty"
+        })
+      };
+    }
 
-    const auth = Buffer.from(`${keyId}:${keySecret}`).toString("base64");
+    if (!customer.name || !customer.phone || !customer.address) {
+      return {
+        statusCode: 400,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          success: false,
+          error: "Customer details are incomplete"
+        })
+      };
+    }
 
-    const response = await fetch("https://api.razorpay.com/v1/orders", {
-      method: "POST",
+    // Frontend amount is in INR.
+    // Razorpay requires paise.
+    const amountInPaise = Math.round(amount * 100);
+
+    const order = await razorpay.orders.create({
+      amount: amountInPaise,
+      currency: "INR",
+      receipt: "POSTERLY_" + Date.now(),
+      notes: {
+        customer_name: customer.name,
+        customer_phone: customer.phone,
+        customer_address: customer.address
+      }
+    });
+
+    console.log("POSTERLY Razorpay order created:", order);
+
+    // IMPORTANT:
+    // index.html expects this exact response structure.
+    return {
+      statusCode: 200,
       headers: {
-        "Authorization": `Basic ${auth}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        amount,
-        currency: "INR",
-        receipt: "posterly_" + Date.now(),
-        notes: {
-          customer_name: String(body.name || "").slice(0, 100),
-          phone: String(body.phone || "").slice(0, 30)
-        }
+        success: true,
+        key_id: process.env.RAZORPAY_KEY_ID,
+        order: order
       })
-    });
+    };
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error("Razorpay order error:", JSON.stringify(data));
-      return json(response.status, {
-        error: data?.error?.description || "Razorpay rejected the order request."
-      });
-    }
-
-    console.log("Razorpay order created:", data.id, "amount:", data.amount);
-
-    return json(200, {
-      orderId: data.id,
-      amount: data.amount,
-      currency: data.currency
-    });
   } catch (error) {
-    console.error("create-order error:", error);
-    return json(500, { error: error.message || "Could not create Razorpay order." });
+    console.error("POSTERLY create-order error:", error);
+
+    return {
+      statusCode: 500,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        success: false,
+        error: error?.error?.description ||
+               error?.description ||
+               error?.message ||
+               "Unable to create Razorpay order"
+      })
+    };
   }
 };
-
-function json(statusCode, body) {
-  return {
-    statusCode,
-    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-    body: JSON.stringify(body)
-  };
-}
