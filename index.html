@@ -165,10 +165,11 @@ if(!n||!p||!e||!a||!st||!pin){
   alert("Please fill all customer and delivery details.");
   return;
 }
-if(!/^\\S+@\\S+\\.\\S+$/.test(e)){
-  alert("Please enter a valid email address.");
+if(!e){
+  alert("Please enter your email address.");
   return;
 }
+
 if(!/^\\d{6}$/.test(pin)){
   alert("Please enter a valid 6-digit PIN code.");
   return;
