@@ -170,9 +170,10 @@ if(!e){
   return;
 }
 
-if(!/^\\d{6}$/.test(pin)){
+iif(!/^\d{6}$/.test(pin)){
   alert("Please enter a valid 6-digit PIN code.");
   return;
+}
 }
 if(!cart.length){alert("Cart is empty.");return}
 
